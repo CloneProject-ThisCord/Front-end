@@ -11,7 +11,10 @@ const SignUpFrom = ({ onClickInformBtn }) => {
         <input type="text" />
         <p>비밀번호</p>
         <input type="password" />
-        <LoginBtn style={{ marginTop: "40px" }} className="continue_btn">
+        <LoginBtn
+          style={{ marginTop: "40px", width: "500px" }}
+          className="continue_btn"
+        >
           계속하기
         </LoginBtn>
       </SignUpInner>
