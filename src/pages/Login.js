@@ -8,7 +8,7 @@ import { userLogin } from "../core/api/login";
 import sweetAlert from "../core/utils/sweetAlert";
 
 const LoginBtn = styled.button`
-  background-color: rgb(251, 245, 245);
+  background-color: blue;
   border: none;
   border-radius: 10px;
   width: 150px;
@@ -19,31 +19,13 @@ const LoginBtn = styled.button`
   }
 `;
 
-const CheckDupliBtn = styled.button`
-  background-color: rgb(232, 232, 232);
-  border-radius: 10px;
-  border: none;
-  width: 100px;
-  height: 30px;
-  font-size: 18px;
-  :hover {
-    background-color: rgb(214, 238, 244);
-  }
-`;
-
 const BG = styled.div`
-  background-color: rgb(214, 238, 244);
-  width: 80%;
+  background-color: #5865f2;
+  width: 100%;
   top: 0;
   position: absolute;
-  height: 700px;
+  height: 100%;
   z-index: -9999;
-`;
-
-const LoginImage = styled.div`
-  width: 950px;
-  height: 700px;
-  background-color: rgb(214, 238, 244); ;
 `;
 
 const FormInner = styled.form`
@@ -90,20 +72,22 @@ const FormInner = styled.form`
 `;
 
 const Inner = styled.section`
-  width: 1200px;
-  background-color: white;
+  width: 800px;
+  height: 400px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: auto;
-  display: flex;
-  .loginside_image {
-    height: 700px;
+  text-align: center;
+  .form_title {
+    color: white;
+    font-size: 28px;
   }
-  .form_wrapper {
-    position: relative;
-    margin: auto;
-    .form_title {
-      margin-left: 60px;
-      font-size: 42px;
-    }
+  .form_subtitle {
+    color: darkgray;
+    font-size: 20px;
   }
 `;
 
@@ -187,7 +171,19 @@ const Login = () => {
 
   return (
     <>
-      <Inner className="inner"></Inner>
+      <Inner className="form_wrapper">
+        <div className="form_inner">
+          <p className="form_title">돌아오신것을 환영해요!</p>
+          <p className="form_subtitle">다시 만나다니 너무 반가워요!</p>
+          <p>이메일 ★</p>
+          <input type="text"></input>
+          <p>비밀번호 ★</p>
+          <input type="text"></input>
+          <p>비밀번호를 잊으셨나요?</p>
+        </div>
+      </Inner>
+
+      <BG />
     </>
   );
 };
