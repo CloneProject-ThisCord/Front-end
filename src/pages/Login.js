@@ -96,6 +96,8 @@ const Login = () => {
 
   return (
     <>
+      <div className="loginpage_img1"></div>
+      <div className="loginpage_img2"></div>
       {isSingup ? (
         <SignUpFrom onClickInformBtn={onClickInformBtn} />
       ) : (
