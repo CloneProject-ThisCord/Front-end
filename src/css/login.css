@@ -10,8 +10,9 @@
     top: 100px;
     background-position: center;
     background-size: cover;
-    background-image: url(../../public/imgae/discordIMG.jpeg);
+    background-image: url(../../public/image/discordIMG.jpeg);
   }
+
 
 /* .form_wrapper {
     width: 800px;
@@ -25,13 +26,27 @@
     margin: auto;
 }
 
-.form_inner {
-    width: 750px;
-    height: 350px;
-    margin: 30px auto;
-    position: relative;
-/* } * */
 
-/* .form_inner input {
-  
-} */
+.loginpage_img1 {
+  position: absolute;
+  width: 500px;
+  height: 340px;
+  right: 0%;
+  top: 50%;
+  translate: (0,-50%);
+  background-repeat: no-repeat  ;
+  box-sizing: content-box;
+  background-image: url(../../public/image/loginsideIMG.png);
+}
+
+.loginpage_img2 {
+  position: absolute;
+  width: 500px;
+  height: 340px;
+  left: 0%;
+  bottom: 50%;
+  translate: (0,-50%);
+  background-repeat: no-repeat  ;
+  box-sizing: content-box;
+  background-image: url(../../public/image/loginSideIMG2.png);
+}
