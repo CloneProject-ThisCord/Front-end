@@ -1,8 +1,6 @@
-
 * {
-    margin: 0;
-    padding: 0;
-
+  margin: 0;
+  padding: 0;
 }
 .discor_img {
     position: absolute;
@@ -13,10 +11,8 @@
     background-position: center;
     background-size: cover;
     background-image: url(../../public/imgae/discordIMG.jpeg);
-    
   }
 
-  
 /* .form_wrapper {
     width: 800px;
     height: 400px;
