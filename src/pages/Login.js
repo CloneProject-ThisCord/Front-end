@@ -1,45 +1,21 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ".././css/login.css";
-import { useInputs } from "../core/hooks/useInputs";
-import { userLogin } from "../core/api/login";
+
 import sweetAlert from "../core/utils/sweetAlert";
 import LoginFrom from "../components/login/LoginForm";
 import SignUpFrom from "../components/login/SignUpForm";
 
-const BG = styled.div`
-  background-color: #5865f2;
-  width: 100%;
-  top: 0;
-  position: absolute;
-  height: 100%;
-  z-index: -9999;
-`;
-
 const Login = () => {
   const [isSingup, setIsSingup] = useState(false);
-  const [inputs, onChangeInput, clearInput, setInputs] = useInputs();
+
   const [isCheckInform, setIsCheckInform] = useState({
     userIdCheck: false,
     nickNameCheck: false,
   });
 
-  const { userIdCheck, nickNameCheck } = isCheckInform;
-  const { userId, password, passwordCheck, nickName } = inputs;
-
-  useEffect(() => {
-    clearInput();
-  }, []);
-
-  const onSubmitUser = (e) => {
-    e.preventDefault();
-    const newUser = {
-      userName: userId,
-      nickName: nickName,
-      password: password,
-    };
-    console.log(newUser);
-  };
+  // const { userIdCheck, nickNameCheck } = isCheckInform;
 
   const is_blank = (asValue) => {
     const blank_pattern = /[\s]/g;
@@ -96,15 +72,25 @@ const Login = () => {
 
   return (
     <>
+      <div className="loginpage_img1"></div>
+      <div className="loginpage_img2"></div>
       {isSingup ? (
         <SignUpFrom onClickInformBtn={onClickInformBtn} />
       ) : (
         <LoginFrom onClickInformBtn={onClickInformBtn} />
       )}
-
       <BG />
     </>
   );
 };
+
+const BG = styled.div`
+  background-color: #5865f2;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  height: 100%;
+  z-index: -9999;
+`;
 
 export default Login;

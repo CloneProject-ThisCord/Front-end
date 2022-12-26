@@ -1,19 +1,45 @@
 import { SignUpBtn, SignUpInner, SignUpOuter, LoginBtn } from "./Styled";
+import { userSignup } from "../../core/api/login";
+import { useState, useEffect } from "react";
+import { useInputs } from "../../core/hooks/useInputs";
+import { useNavigate } from "react-router-dom";
 
 const SignUpFrom = ({ onClickInformBtn }) => {
+  const navigate = useNavigate();
+  const [inputs, onChangeInput, clearInput] = useInputs();
+  const { userEmail, password, nickName } = inputs;
+
+  useEffect(() => {
+    clearInput();
+  }, []);
+
+  const onUserSignup = (e) => {
+    e.preventDefault();
+    const newUser = {
+      userEmail: userEmail,
+      nickName: nickName,
+      password: password,
+    };
+    userSignup(newUser).then((res) => {
+      localStorage.setItem("name", res.headers.authorization);
+      navigate("/login");
+    });
+  };
+
   return (
     <SignUpOuter>
       <SignUpInner>
         <p className="form_title">계정 만들기</p>
         <p>이메일</p>
-        <input type="text" />
+        <input type="text" name="userEmail" onChange={onChangeInput} />
         <p>사용자명</p>
-        <input type="text" />
+        <input type="text" name="nickName" onChange={onChangeInput} />
         <p>비밀번호</p>
-        <input type="password" />
+        <input type="password" name="password" onChange={onChangeInput} />
         <LoginBtn
           style={{ marginTop: "40px", width: "500px" }}
           className="continue_btn"
+          onClick={onUserSignup}
         >
           계속하기
         </LoginBtn>

@@ -2,9 +2,8 @@ import { useState } from "react";
 
 export const useInputs = () => {
   const [inputs, setInputs] = useState({
-    userId: "",
+    userEmail: "",
     password: "",
-    passwordCheck: "",
     nickName: "",
   });
 
