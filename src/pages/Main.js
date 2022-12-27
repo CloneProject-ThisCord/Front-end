@@ -2,23 +2,32 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import ChatMassege from "../components/main/ChatMassege";
+import { useState } from "react";
+import Modal from "../components/main/Modal";
+import "../css/main.module.css";
 
 const Main = () => {
+  const [isCreateServer, setCreateServer] = useState(false);
+  const onClickCreateChatServer = (e) => {
+    setCreateServer(!isCreateServer);
+  };
+
   return (
     <>
       <HeaderSection className="header">
         <nav className="header_inner">
           <div className="header_chatname">
             채팅방이름: 항해99기 클론프로젝트
-          </div>
-          <div className="header_serch">
-            <span className="header_search_span">
-              <input type="text" placeholder="검색하기" />
-              <p>
-                <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </p>
-            </span>
-            <button className="header_logout_btn">로그아웃하기</button>
+            <div className="header_serch">
+              <span className="header_search_span">
+                <input type="text" placeholder="검색하기" />
+                <p>
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </p>
+              </span>
+              <button className="header_nav_btn">대화방 나가기</button>
+              <button className="header_nav_btn">로그아웃하기</button>
+            </div>
           </div>
         </nav>
       </HeaderSection>
@@ -31,12 +40,23 @@ const Main = () => {
             <li>
               <p>안녕하세요</p>
             </li>
-            <li className="addServer">
+            <li className="addServer" onClick={onClickCreateChatServer}>
               <FontAwesomeIcon icon={faPlus} />
             </li>
           </ul>
+          <div className="sidebar_user_infrom">
+            <div className="sidebar_user_img">
+              <img src="/image/statusIMG.png" className="status_img"></img>
+            </div>
+            <p className="sidebar_user_name">
+              중꺽마 <span className="sidebar_hashcode">#2132</span>
+            </p>
+          </div>
         </Mainaside>
         <MainaBody>
+          {isCreateServer ? (
+            <Modal onClickCreateChatServer={onClickCreateChatServer} />
+          ) : null}
           <div className="chat">
             <ul>
               <ChatMassege />
@@ -45,7 +65,7 @@ const Main = () => {
           </div>
           <div className="chatInputDiv">
             <input placeholder="# 입력 양식을 넣어주세요!" />
-            <button>내용</button>
+            <button>확인</button>
           </div>
         </MainaBody>
         <Mainaside2>
@@ -77,48 +97,51 @@ const Main = () => {
   );
 };
 const HeaderSection = styled.header`
-  width: 90%;
   height: 62px;
-  position: absolute;
-  top: 0;
-  left: 10.5%;
   background-color: #37393e;
   color: white;
-  border-bottom: 1px solid black;
   .header_inner {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    width: 1000px;
+    width: 1200px;
     box-sizing: border-box;
     margin: auto;
-    padding: 1% 1%;
     .header_chatname {
+      width: 1000px;
       font-size: 22px;
-    }
-    .header_serch {
-      .header_search_span {
-        background: #202225;
-        input {
-          width: 150px;
-          transition: 0.5s;
-          background: none;
-          border: none;
-          :focus {
-            width: 250px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: space-between;
+      .header_serch {
+        .header_search_span {
+          background-color: #202225;
+          input {
+            width: 150px;
+            transition: 0.5s;
+            background: none;
+            border: none;
+            :focus {
+              width: 250px;
+            }
+          }
+          p {
+            display: inline-block;
+            padding-left: 15px;
           }
         }
-        p {
-          display: inline-block;
-          padding-left: 15px;
-        }
-      }
 
-      .header_logout_btn {
-        width: 100px;
-        border: none;
-        font-size: 15px;
-        margin-left: 50px;
+        .header_nav_btn {
+          cursor: pointer;
+          width: 110px;
+          color: white;
+          border: none;
+          background: #37393e;
+          font-size: 18px;
+          margin-left: 50px;
+          :hover {
+            color: rgb(63, 121, 63);
+          }
+        }
       }
     }
   }
@@ -126,12 +149,39 @@ const HeaderSection = styled.header`
 
 const MainSection = styled.section`
   display: flex;
-  flex-direction: row;
-  padding-top: 3.2%;
+  padding-top: 30px;
   background-color: #202225;
 `;
 
 const Mainaside = styled.aside`
+  .sidebar_user_infrom {
+    box-sizing: border-box;
+    background: #2f3136;
+    height: 91px;
+    color: white;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    .sidebar_user_name {
+      margin-left: 8px;
+      .sidebar_hashcode {
+        font-size: 18px;
+        color: darkgray;
+      }
+    }
+    .sidebar_user_img {
+      width: 50px;
+      height: 50px;
+      border-radius: 100px;
+      background-color: green;
+      display: flex;
+      align-items: center;
+      .status_img {
+        width: 100%;
+        height: 30px;
+      }
+    }
+  }
   ul {
     list-style: none;
     width: 200px;
@@ -165,6 +215,7 @@ const Mainaside = styled.aside`
       background: #3c3f44;
     }
     .addServer {
+      cursor: pointer;
       color: green;
       font-size: 1.5rem;
       :hover {
@@ -178,18 +229,19 @@ const Mainaside = styled.aside`
 const MainaBody = styled.section`
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 100vh;
+  margin: 0 auto;
+  width: 1200px;
   background-color: #37393e;
   .chat {
     height: 90%;
   }
   .chatInputDiv {
-    height: 10%;
+    display: flex;
     border-top: 1px solid black;
     background-color: #40444b;
     padding: 2% 2%;
     box-sizing: border-box;
+
     input {
       border: 1px solid gray;
       width: 95%;
@@ -204,11 +256,14 @@ const MainaBody = styled.section`
       }
     }
     button {
+      cursor: pointer;
       width: 50px;
       height: 50px;
       border: none;
       border-radius: 50px;
       margin-left: 10px;
+      font-size: 18px;
+      font-weight: 500;
     }
   }
 `;

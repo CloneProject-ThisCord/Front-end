@@ -1,9 +1,12 @@
+
+
 .libox {
   padding: 1% 1%;
   margin-left: 1%;
   margin-top: 1%;
   box-sizing: border-box;
   list-style: none;
+  color: white;
 }
 .box {
   display: flex;
@@ -41,3 +44,5 @@
   font-size: var(--font-micro);
   color: var(--color-dark-white);
 }
+
+
