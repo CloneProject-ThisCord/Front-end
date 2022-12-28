@@ -138,42 +138,52 @@ const ModalBox = styled.div`
     }
   }
   .modal_camera_box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
     font-size: 30px;
     position: absolute;
     border: 5px dashed black;
-    border-radius: 100px;
+    border-radius:100px;
     width: 150px;
     height: 150px;
     top: 200px;
     left: 50%;
-    transform: translate(-50%, -50%);
-
+    transform:translate(-50%, -50%);
+    }
+    
+    
     .modal_file_input {
       position: absolute;
       width: 150px;
       height: 150px;
       opacity: 0;
+
     }
+
+      filter:alpha(opacity=0);
+      -ms-filter:alpha:(opacity = 0);
+    }
+    
     .modal_camera_upload {
-      text-align: center;
-      font-size: 18px;
+      text-align:center;
+      font-size:18px;
     }
   }
+  
   .modal_title {
     font-size: 24px;
     font-weight: 600;
     margin-top: 15px;
     margin-bottom: 20px;
   }
+  
   .modal_inform {
     font-size: 20px;
     color: gray;
     margin-bottom: 50px;
   }
-
+  
   .modal_server_box {
     display: flex;
     flex-wrap: wrap;
