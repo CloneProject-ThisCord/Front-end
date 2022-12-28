@@ -5,6 +5,8 @@ export const useInputs = () => {
     userEmail: "",
     password: "",
     nickName: "",
+    message: "",
+    roomTitle: "",
   });
 
   const onChangeInput = (event) => {
@@ -20,8 +22,9 @@ export const useInputs = () => {
     setInputs({
       userId: "",
       password: "",
-      passwordCheck: "",
       nickName: "",
+      message: "",
+      roomTitle: "",
     });
   };
 
