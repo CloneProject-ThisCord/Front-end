@@ -29,21 +29,14 @@ const SignUpFrom = ({ onClickInformBtn }) => {
   const is_username = (asValue) => {
     const regExp = /^[a-zA-Z0-9]{4,12}$/;
     //   닉네임은 최소 4자 이상, 12자 이하 알파벳 대소문자(a-z, A-Z), 숫자(0-9)로 구성됩니다.
+
     return regExp.test(asValue);
   };
-
-  // const is_password = (e) => {
-
-  //   if (
-
-  //   )
-  //     return true;
-  // };
 
   const onUserSignup = (e) => {
     e.preventDefault();
     const maxlength = 20;
-    const minlength = 6;
+    const minlength = 7;
     const blankExp = /[\s]/g;
     if (blankExp.test(userEmail)) {
       return sweetAlert(1000, "error", "공백을 제거해주세요");
@@ -63,10 +56,11 @@ const SignUpFrom = ({ onClickInformBtn }) => {
     }
 
     if (
-      password < minlength ||
-      password > maxlength ||
+      password.length < minlength ||
+      password.length > maxlength ||
       password.trim() === ""
     ) {
+      console.log("password", password);
       return sweetAlert(
         1000,
         "error",
@@ -80,7 +74,7 @@ const SignUpFrom = ({ onClickInformBtn }) => {
       password: password,
     };
     userSignup(newUser).then((res) => {
-      sweetAlert(1000, "success", "로그인 성공");
+      sweetAlert(1000, "success", "회원가입 성공");
       localStorage.setItem("id", res.headers.authorization);
       navigate("/login");
     });

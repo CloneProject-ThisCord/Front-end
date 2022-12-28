@@ -32,8 +32,6 @@ const LoginFrom = ({ onClickInformBtn }) => {
   };
 
   const onUserLogin = (e) => {
-    console.log("푼 콘솔", is_userId(userEmail));
-    // console.log(is_password(password));
     e.preventDefault();
     const maxlength = 20;
     const minlength = 6;
