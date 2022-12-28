@@ -13,20 +13,56 @@ const LoginFrom = ({ onClickInformBtn }) => {
   const [inputs, onChangeInput, clearInput] = useInputs();
   const { userEmail, password } = inputs;
 
+  console.log("무엇이 나오나>", userEmail);
   // console.log("인풋츠 나오나?", inputs);
   useEffect(() => {
     clearInput();
   }, []);
 
+  const is_userId = (asValue) => {
+    const regIdExp =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    // 아이디는 최소 4자 이상, 15자 이하 알파벳 대소문자(a-z, A-Z), 숫자(0-9)로 구성됩니다.
+    // id:영문-숫자 4,10
+
+    //  이메일 형식으로 되어 반드시 @와. 이 들어간 완성된 이메일 형식으로 되어야 한다.
+    let result = regIdExp.test(asValue);
+
+    return result;
+  };
+
   const onUserLogin = (e) => {
+    console.log("푼 콘솔", is_userId(userEmail));
+    // console.log(is_password(password));
     e.preventDefault();
+    const maxlength = 20;
+    const minlength = 6;
+    const blankExp = /[\s]/g;
+    if (blankExp.test(userEmail)) {
+      return sweetAlert(1000, "error", "공백을 제거해주세요");
+    }
+    if (is_userId(userEmail) === false) {
+      sweetAlert(1000, "error", "이메일 형식이 맞지 않습니다.");
+      return;
+    }
+    if (
+      password < minlength ||
+      password > maxlength ||
+      password.trim() === ""
+    ) {
+      return sweetAlert(
+        1000,
+        "error",
+        "비밀번호는 최소 6자 이상, 18자 이하의 알파벳 소문자, 숫자여야 합니다"
+      );
+    }
     userLogin({
       userEmail,
       password,
     })
       .then((res) => {
         sweetAlert(1000, "success", "로그인 성공");
-        localStorage.setItem("name", res.headers.authorization);
+        localStorage.setItem("id", res.headers.authorization);
         // console.log("닉네임도 받아와",res)
         navigate("/main");
       })
@@ -43,17 +79,19 @@ const LoginFrom = ({ onClickInformBtn }) => {
         </p>
         <input
           type="text"
-          name="userId"
-          value={userEmail}
+          id="userEmail"
+          name="userEmail"
+          value={userEmail || ""}
           onChange={onChangeInput}
         ></input>
         <p>
           비밀번호 <span>★</span>
         </p>
         <input
-          type="text"
+          type="password"
+          id="password"
           name="password"
-          value={password}
+          value={password || ""}
           onChange={onChangeInput}
         ></input>
         <LoginBtn className="login_btn" onClick={onUserLogin}>

@@ -53,7 +53,6 @@ const Modal = ({ onClickCreateChatServer }) => {
         ) : (
           <ModalImg src={image} className="modal_upload_img" />
         )}
-
         <input
           type="file"
           className="modal_file_input"
@@ -151,32 +150,40 @@ const ModalBox = styled.div`
     top: 200px;
     left: 50%;
     transform:translate(-50%, -50%);
+    }
+    
     
     .modal_file_input {
       position: absolute;
       width: 150px;
       height: 150px;
       opacity: 0;
+
+    }
+
       filter:alpha(opacity=0);
       -ms-filter:alpha:(opacity = 0);
     }
+    
     .modal_camera_upload {
       text-align:center;
       font-size:18px;
     }
   }
+  
   .modal_title {
     font-size: 24px;
     font-weight: 600;
     margin-top: 15px;
     margin-bottom: 20px;
   }
+  
   .modal_inform {
     font-size: 20px;
     color: gray;
     margin-bottom: 50px;
   }
- 
+  
   .modal_server_box {
     display: flex;
     flex-wrap: wrap;
