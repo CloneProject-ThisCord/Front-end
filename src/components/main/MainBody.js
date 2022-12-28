@@ -2,7 +2,11 @@ import Modal from "../../components/main/Modal";
 import "../../css/main.module.css";
 import ChatMassege from "../../components/main/ChatMassege";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faPaperPlane,
+  faRectangleList,
+} from "@fortawesome/free-solid-svg-icons";
 import { MainaBody, Mainaside } from "./Styled";
 import { useState, useRef, useEffect } from "react";
 import { useInputs } from "../../core/hooks/useInputs";
@@ -180,7 +184,10 @@ const MainBody = () => {
       <Mainaside>
         <ul>
           <li className="ulTitle">
-            <p>쏘버 쏴이드 뢘더륑!</p>
+            <p>
+              <FontAwesomeIcon className="list" icon={faRectangleList} />
+              채팅 서버 목록
+            </p>
           </li>
           <li>
             {/*채팅방 리스트 */}
@@ -220,7 +227,9 @@ const MainBody = () => {
           value={message}
           onChange={onChangeInput}
         />
-        <button>확인</button>
+        <button>
+          <FontAwesomeIcon icon={faPaperPlane} />
+        </button>
       </div>
 
       {allSizeModalShow && (

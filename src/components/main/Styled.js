@@ -85,13 +85,14 @@ export const Mainaside = styled.aside`
     }
   }
   ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
     width: 200px;
     height: 100vh;
     border: 1px solid;
-    padding: 0% 0% 2% 2%;
     box-sizing: border-box;
-
     color: white;
     background-color: #202225;
     border: none;
@@ -106,6 +107,12 @@ export const Mainaside = styled.aside`
       border-radius: 0px;
       margin: 0px;
       background: none;
+    }
+    p {
+      width: 100%;
+      .list {
+        padding: 0 3%;
+      }
     }
     li {
       position: relative;
