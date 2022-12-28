@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useInputs } from "../../core/hooks/useInputs";
 import sweetAlert from "../../core/utils/sweetAlert";
 
-const Modal = ({ modalOutSideClick, modalRef }) => {
-  // const dispatch = useDispatch();
+const Modal = ({ modalOutSideClick, modalRef, setAllSizeModalShow }) => {
+  const dispatch = useDispatch();
   const [image, setImage] = useState();
   const [inputs, onChangeInput] = useInputs();
   const { roomTitle } = inputs;
@@ -33,8 +33,8 @@ const Modal = ({ modalOutSideClick, modalRef }) => {
       return sweetAlert(1000, "error", "공백을 제거해주세요");
     }
     console.log(roomTitle);
-    // dispatch(__postRooms(roomTitle));
-    // setAllSizeModalShow(false);
+    dispatch(__postRooms(roomTitle));
+    setAllSizeModalShow(false);
   };
 
   return (
