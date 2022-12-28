@@ -2,22 +2,17 @@ import styled from "styled-components";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useRef, useEffect } from "react";
+import { __getRooms, __postRooms } from "../../redux/modules/chatSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useInputs } from "../../core/hooks/useInputs";
+import sweetAlert from "../../core/utils/sweetAlert";
 
-const Modal = ({ onClickCreateChatServer }) => {
+const Modal = ({ modalOutSideClick, modalRef }) => {
+  // const dispatch = useDispatch();
   const [image, setImage] = useState();
-  const modal = useRef();
-  const [isOpen, setOpen] = useState(false);
-
-  const handleCloseModal = (e) => {
-    if (isOpen && (!modal.current || !modal.current(e.target))) setOpen(false);
-  };
-
-  // useEffect(() => {
-  //   window.addEventListener("click");
-  //   return () => {
-  //     window.removeEventListener("click");
-  //   };
-  // });
+  const [inputs, onChangeInput] = useInputs();
+  const { roomTitle } = inputs;
 
   const onChnageImage = (e) => {
     const file = e.target.files[0];
@@ -27,69 +22,95 @@ const Modal = ({ onClickCreateChatServer }) => {
       setImage(reader.result);
     };
   };
+  const onCreateChatRoom = () => {
+    // 내용 입력했는지 확인
+    if (roomTitle === "") {
+      return sweetAlert(1000, "error", "채팅방 이름을 입력해주세요");
+    }
+    // 공백확인
+    const blankExp = /[\s]/g;
+    if (blankExp.test(roomTitle)) {
+      return sweetAlert(1000, "error", "공백을 제거해주세요");
+    }
+    console.log(roomTitle);
+    // dispatch(__postRooms(roomTitle));
+    // setAllSizeModalShow(false);
+  };
 
   return (
-    <ModalBox className="modal" ref={modal}>
-      <p className="modal_title">서버 커스터 마이징하기</p>
-      <p className="modal_inform">
-        새로운 서버에 이름과 아이콘을 부여해 개성을 드러내보세요.
-      </p>
-
-      <div className="modal_camera_box">
-        {image ? null : (
-          <>
-            <FontAwesomeIcon icon={faCamera} />
-            <p className="modal_camera_upload">UPLOAD</p>{" "}
-          </>
-        )}
-
-        {image ? (
-          <ModalImg
-            src={image}
-            alt="upload할 사진"
-            className="modal_upload_img"
-            display="block"
-          />
-        ) : (
-          <ModalImg src={image} className="modal_upload_img" />
-        )}
-
-        <input
-          type="file"
-          className="modal_file_input"
-          name="imgae"
-          onChange={onChnageImage}
-        />
-      </div>
-
-      <div className="modal_server_box">
-        <p className="modal_server_title">서버 이름</p>
-        <input type="text" className="modal_server_input" />
-        <p>
-          서버를 만들면 Discord의
-          <a href="https://discord.com/guidelines"> 커뮤니티 지침</a>에 동의하게
-          됩니다.
+    <AllSizeSection ref={modalRef} onClick={modalOutSideClick}>
+      <ModalBox className="modal">
+        <p className="modal_title">서버 커스터 마이징하기</p>
+        <p className="modal_inform">
+          새로운 서버에 이름과 아이콘을 부여해 개성을 드러내보세요.
         </p>
-      </div>
-      <ModalBtn
-        style={{ background: "white", left: 0 }}
-        onClick={onClickCreateChatServer}
-      >
-        뒤로가기
-      </ModalBtn>
-      <ModalBtn
-        style={{
-          background: "white",
-          right: "30px",
-          background: "#5865f2",
-          color: "white",
-        }}
-      >
-        만들기
-      </ModalBtn>
-    </ModalBox>
+
+        <div className="modal_camera_box">
+          {image ? null : (
+            <>
+              <FontAwesomeIcon icon={faCamera} />
+              <p className="modal_camera_upload">UPLOAD</p>{" "}
+            </>
+          )}
+
+          {image ? (
+            <ModalImg
+              src={image}
+              alt="upload할 사진"
+              className="modal_upload_img"
+              display="block"
+            />
+          ) : (
+            <ModalImg src={image} className="modal_upload_img" />
+          )}
+
+          <input
+            type="file"
+            className="modal_file_input"
+            name="imgae"
+            onChange={onChnageImage}
+          />
+        </div>
+
+        <div className="modal_server_box">
+          <p className="modal_server_title">서버 이름</p>
+          <input
+            type="text"
+            className="modal_server_input"
+            name="roomTitle"
+            value={roomTitle}
+            onChange={onChangeInput}
+            placeholder="만드실 채팅방 이름을 입력해주세요"
+          />
+          <p>
+            서버를 만들면 Discord의
+            <a href="https://discord.com/guidelines"> 커뮤니티 지침</a>에
+            동의하게 됩니다.
+          </p>
+        </div>
+        <ModalBtn style={{ background: "white", left: 0 }}>뒤로가기</ModalBtn>
+        <ModalBtn
+          style={{
+            background: "white",
+            right: "30px",
+            background: "#5865f2",
+            color: "white",
+          }}
+          onClick={onCreateChatRoom}
+        >
+          만들기
+        </ModalBtn>
+      </ModalBox>
+    </AllSizeSection>
   );
 };
+
+//모달 밖을 구분하기 위한 div
+const AllSizeSection = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
 
 const ModalImg = styled.img`
   display: ${(props) => props.display || "none"};

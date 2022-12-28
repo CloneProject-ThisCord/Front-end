@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import post from "../modules/postSlice";
-// import visibil from "../modules/visibilSlcie"; //로그인 화면가리기 기능
+import chat from "../modules/chatSlice";
 
 const store = configureStore({
-  reducer: { post },
+  reducer: { chat },
 });
 
 export default store;
