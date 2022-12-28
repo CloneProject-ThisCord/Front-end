@@ -13,8 +13,6 @@ const LoginFrom = ({ onClickInformBtn }) => {
   const [inputs, onChangeInput, clearInput] = useInputs();
   const { userEmail, password } = inputs;
 
-  console.log("무엇이 나오나>", userEmail);
-  // console.log("인풋츠 나오나?", inputs);
   useEffect(() => {
     clearInput();
   }, []);
@@ -54,21 +52,23 @@ const LoginFrom = ({ onClickInformBtn }) => {
         "비밀번호는 최소 6자 이상, 18자 이하의 알파벳 소문자, 숫자여야 합니다"
       );
     }
-    userLogin({
-      userEmail,
-      password,
-    })
-      .then((res) => {
-        sweetAlert(1000, "success", "로그인 성공");
-        localStorage.setItem("id", res.headers.authorization);
-        // console.log("닉네임도 받아와",res)
-        navigate("/main");
-      })
-      .catch((error) => sweetAlert(1000, "error", error.response.data.msg));
+    const loginUser = {
+      email: userEmail,
+      password: password,
+    };
+    userLogin(loginUser).then((res) => {
+      console.log(res);
+      localStorage.setItem("id", res.headers.authorization);
+      localStorage.setItem("username", res.data.username);
+      localStorage.setItem("hashTag", res.data.hashTag);
+      localStorage.setItem("profilePic", res.data.profilePic);
+      sweetAlert(1000, "success", "로그인 성공");
+      // navigate("/main");
+    });
   };
   return (
     <LoginOuter className="form_wrapper">
-      <LoginInner className="form_inner">
+      <LoginInner className="form_inner" onSubmit={onUserLogin}>
         <p className="form_title">돌아오신것을 환영해요!</p>
         <p className="form_subtitle">다시 만나다니 너무 반가워요!</p>
 
@@ -94,9 +94,7 @@ const LoginFrom = ({ onClickInformBtn }) => {
           onChange={onChangeInput}
           placeholder="비밀번호를 입력해주세요"
         ></input>
-        <LoginBtn className="login_btn" onClick={onUserLogin}>
-          로그인하기
-        </LoginBtn>
+        <LoginBtn className="login_btn">로그인하기</LoginBtn>
         <p>
           계정이 필요한가요?
           <SignUpBtn onClick={onClickInformBtn}>가입하기</SignUpBtn>

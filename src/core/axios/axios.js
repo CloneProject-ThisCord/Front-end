@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_AKIJAKI,
+  baseURL: "http://13.209.15.249",
   headers: {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
@@ -10,7 +10,7 @@ export const instance = axios.create({
 });
 
 export const baseURL = axios.create({
-  baseURL: process.env.REACT_APP_AKIJAKI,
+  baseURL: "http://13.209.15.249",
   headers: {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",

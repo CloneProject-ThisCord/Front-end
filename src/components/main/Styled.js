@@ -56,6 +56,8 @@ export const MainaBody = styled.section`
 `;
 
 export const Mainaside = styled.aside`
+  overflow-y: scroll;
+  height: 900px;
   .sidebar_user_infrom {
     box-sizing: border-box;
     background: #2f3136;
@@ -90,7 +92,7 @@ export const Mainaside = styled.aside`
     align-items: center;
     list-style: none;
     width: 200px;
-    height: 100vh;
+
     border: 1px solid;
     box-sizing: border-box;
     color: white;

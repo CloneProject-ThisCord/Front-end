@@ -35,6 +35,7 @@ const SignUpFrom = ({ onClickInformBtn }) => {
 
   const onUserSignup = (e) => {
     e.preventDefault();
+    console.log(e);
     const maxlength = 20;
     const minlength = 7;
     const blankExp = /[\s]/g;
@@ -69,19 +70,21 @@ const SignUpFrom = ({ onClickInformBtn }) => {
     }
 
     const newUser = {
-      userEmail: userEmail,
-      nickName: nickName,
+      email: userEmail,
+      username: nickName,
       password: password,
     };
+
     userSignup(newUser).then((res) => {
-      sweetAlert(1000, "success", "회원가입 성공");
-      localStorage.setItem("id", res.headers.authorization);
-      navigate("/login");
+      console.log("결과값", res);
+      console.log("요청값", newUser);
+      // navigate("/");
     });
   };
+
   return (
     <SignUpOuter>
-      <SignUpInner>
+      <SignUpInner onSubmit={onUserSignup}>
         <p className="form_title">계정 만들기</p>
         <p>이메일</p>
         <input
@@ -104,13 +107,12 @@ const SignUpFrom = ({ onClickInformBtn }) => {
           type="password"
           name="password"
           value={password || ""}
-          placeholder="최소 8자 이상, 20자 이하의 알파벳 대소문자, 숫자, 특수문자"
+          placeholder="최소 6자 이상, 18자 이하의 알파벳,숫자"
           onChange={onChangeInput}
         />
         <LoginBtn
           style={{ marginTop: "40px", width: "500px" }}
           className="continue_btn"
-          onClick={onUserSignup}
         >
           계속하기
         </LoginBtn>

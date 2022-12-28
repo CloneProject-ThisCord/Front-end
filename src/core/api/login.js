@@ -1,9 +1,11 @@
 import sweetAlert from "../utils/sweetAlert";
 import { instance } from "../axios/axios";
+import axios from "axios";
 
 export const userLogin = async (user) => {
   try {
-    const data = await instance.post("/api/user/login", user);
+    console.log("user", user);
+    const data = await axios.post("http://13.209.15.249/api/user/login", user);
     if (data.data.statusCode === 200) {
       sweetAlert(1000, "success", "로그인 성공");
     }
@@ -15,10 +17,11 @@ export const userLogin = async (user) => {
 
 export const userSignup = async (user) => {
   try {
-    const data = await instance.post("/api/user/signup", user);
+    const data = await axios.post("http://13.209.15.249/api/user/signup", user);
     sweetAlert(1000, "success", "회원가입 성공");
     return data;
   } catch (error) {
+    console.log(error);
     sweetAlert(1000, "error", "회원가입 실패");
   }
 };
