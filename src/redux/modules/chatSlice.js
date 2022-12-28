@@ -46,15 +46,30 @@ export const __getDetailRooms = createAsyncThunk(
   }
 );
 
+export const __getMassages = createAsyncThunk(
+  "getMassages",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await baseURL.get(`/api/rooms/${payload}/messages`);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      sweetAlert(1000, "error", error.response.data.msg);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   roomId: "",
-  chatRoom: [
+  chatRoomList: [
     {
       roomId: "",
       roomName: "",
       rommPic: "",
+      // connectedUsers:[]연결된사람들도 설정을해야할듯한데?
     },
   ],
+  charRoom: {},
   chat: [],
   users: [
     {
@@ -70,7 +85,11 @@ const initialState = {
 const chatSlice = createSlice({
   name: "chat",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    addMessage: (state, { payload }) => {
+      state.chat = [...state.chat, payload];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(__getRooms.pending, (state, action) => {
       state.isLoading = true;
@@ -101,13 +120,27 @@ const chatSlice = createSlice({
       state.error = action.payload;
     });
     builder.addCase(__postRooms.fulfilled, (state, action) => {
-      state.chatRoom.push(action.payload);
+      state.chatRoomList.push(action.payload);
       state.isLoading = false;
       state.isSuccess = true;
     });
+    builder.addCase(__getMassages.pending, (state, action) => {
+      state.isLoading = true;
+      state.isSuccess = false;
+    });
+    builder.addCase(__getMassages.fulfilled, (state, action) => {
+      state.charRoom = action.payload;
+      state.isLoading = false;
+      state.isSuccess = true;
+    });
+    builder.addCase(__getMassages.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.error = action.payload;
+    });
   },
 });
-// export const {  } = postSlice.actions;
+export const { addMessage } = chatSlice.actions;
 
 const postReducer = chatSlice.reducer;
 

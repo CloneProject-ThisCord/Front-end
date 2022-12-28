@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faShareFromSquare,
+  faCircleRight,
+  faFaceSmile,
+  faFaceFrown,
+} from "@fortawesome/free-solid-svg-icons";
 import MainBody from "../components/main/MainBody";
 import "../css/main.module.css";
 
@@ -10,7 +16,8 @@ const Main = () => {
       <HeaderSection className="header">
         <nav className="header_inner">
           <div className="header_chatname">
-            채팅방이름: 항해99기 클론프로젝트
+            <span className="header_chatname_span">채팅방이름 :</span> 항해99기
+            클론프로젝트
             <div className="header_serch">
               <span className="header_search_span">
                 <input type="text" placeholder="검색하기" />
@@ -18,8 +25,14 @@ const Main = () => {
                   <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </p>
               </span>
-              <button className="header_nav_btn">채널 나가기</button>
-              <button className="header_nav_btn">로그아웃하기</button>
+              <button className="header_nav_btn">
+                <FontAwesomeIcon className="Out" icon={faShareFromSquare} />
+                대화방 나가기
+              </button>
+              <button className="header_nav_btn">
+                <FontAwesomeIcon className="Out" icon={faCircleRight} />
+                로그아웃하기
+              </button>
             </div>
           </div>
         </nav>
@@ -29,7 +42,10 @@ const Main = () => {
         <MainBody />
         <Mainaside2>
           <div className="asideOne">
-            <h3>온라인상태</h3>
+            <h3>
+              <FontAwesomeIcon className="OnOffLine" icon={faFaceSmile} />
+              온라인상태
+            </h3>
             <ul>
               <OnlineList>
                 <p>
@@ -40,7 +56,10 @@ const Main = () => {
             </ul>
           </div>
           <div className="asideOff">
-            <h3>오프라인상태</h3>
+            <h3>
+              <FontAwesomeIcon className="OnOffLine" icon={faFaceFrown} />
+              오프라인상태
+            </h3>
             <ul>
               <OnlineList>
                 <p>
@@ -57,22 +76,29 @@ const Main = () => {
 };
 
 const HeaderSection = styled.header`
+  width: 100%;
   height: 62px;
   background-color: #37393e;
   color: white;
   .header_inner {
     display: flex;
-    justify-content: space-between;
+
     width: 1200px;
     box-sizing: border-box;
     margin: auto;
     .header_chatname {
-      width: 1000px;
+      width: 100%;
       font-size: 22px;
       margin: 20px auto;
       display: flex;
       justify-content: space-between;
+      .header_chatname_span {
+        font-weight: 500;
+      }
       .header_serch {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: nowrap;
         .header_search_span {
           background-color: #202225;
           input {
@@ -92,14 +118,18 @@ const HeaderSection = styled.header`
 
         .header_nav_btn {
           cursor: pointer;
-          width: 110px;
+          width: 145px;
           color: white;
           border: none;
           background: #37393e;
           font-size: 18px;
           margin-left: 50px;
+          box-sizing: border-box;
           :hover {
             color: rgb(63, 121, 63);
+          }
+          .Out {
+            padding: 1% 3%;
           }
         }
       }
@@ -109,7 +139,7 @@ const HeaderSection = styled.header`
 
 const MainSection = styled.section`
   display: flex;
-  padding-top: 30px;
+  border-top: 0.5px solid black;
   background-color: #202225;
 `;
 
@@ -117,7 +147,7 @@ const Mainaside2 = styled.aside`
   display: flex;
   flex-direction: column;
   width: 20%;
-  height: 100vh;
+  height: 110vh;
   background-color: #2f3136;
   color: white;
   li {
@@ -128,6 +158,9 @@ const Mainaside2 = styled.aside`
     h3 {
       padding: 5% 5%;
       box-sizing: border-box;
+      .OnOffLine {
+        padding: 0 2%;
+      }
     }
   }
   .asideOff {
@@ -135,6 +168,9 @@ const Mainaside2 = styled.aside`
     h3 {
       padding: 5% 5%;
       box-sizing: border-box;
+      .OnOffLine {
+        padding: 0 2%;
+      }
     }
   }
 `;
