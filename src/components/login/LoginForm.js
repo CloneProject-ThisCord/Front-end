@@ -81,6 +81,7 @@ const LoginFrom = ({ onClickInformBtn }) => {
           name="userEmail"
           value={userEmail || ""}
           onChange={onChangeInput}
+          placeholder="이메일을 입력해주세요"
         ></input>
         <p>
           비밀번호 <span>★</span>
@@ -91,6 +92,7 @@ const LoginFrom = ({ onClickInformBtn }) => {
           name="password"
           value={password || ""}
           onChange={onChangeInput}
+          placeholder="비밀번호를 입력해주세요"
         ></input>
         <LoginBtn className="login_btn" onClick={onUserLogin}>
           로그인하기

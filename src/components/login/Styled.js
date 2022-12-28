@@ -47,6 +47,9 @@ export const LoginInner = styled.form`
     background-color: rgb(38, 35, 35);
     border-radius: 5px;
     font-size: 22px;
+    ::placeholder {
+      font-size: 1rem;
+    }
   }
 `;
 
