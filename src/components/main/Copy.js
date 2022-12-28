@@ -59,6 +59,11 @@ const ChattingRoom = (props) => {
 
   // 웹소켓 연결, 구독
   function wsConnectSubscribe() {
+    //ws클라이언트 객체에 첫번째인자에 토큰을 전달,
+    //두번째 인자로는 콜백함수 sub를 통해 socket 연결을 요청
+    //소켓에서, 즉 서버에서 주는 data를 통해 기존에 있던 message를 가져옴?
+    //getMessagae를 통해 기존에 있던 message들을 받아옴?
+    //sub동작 그안에서 두번째 인자로는 token을 입력?
     try {
       ws.connect(
         {
@@ -82,10 +87,15 @@ const ChattingRoom = (props) => {
 
   // 연결해제, 구독해제
   function wsDisConnectUnsubscribe() {
+    //연결을 끊어졌을때의 함수?
+    //unsubscribe는 어떤 동작? 인자는 sub-0왜?
+
     try {
       ws.disconnect(
         () => {
           ws.unsubscribe("sub-0");
+          //써보면 알수 있을 듯!
+          //내장되어 있는 느낌!
         },
         { token: token }
       );
@@ -96,6 +106,13 @@ const ChattingRoom = (props) => {
 
   // 웹소켓이 연결될 때 까지 실행하는 함수
   function waitForConnection(ws, callback) {
+    //웹소켓이 연결될때까지 비동기처리로 기다리는 상항을처리?
+    //웹소켓 연결을 하는 것 자체가 굉장히 불안전함
+    //연결이 안되었을시에 디도스급 에러 발생
+    //브로큰 파이프 발생!
+    //서버를 다시 파는 상황이 나올 수도 있음!
+    //소켓을 안쓰고도 채팅구현이 가능
+    //폴링식으로도 구현이 가능
     setTimeout(
       function () {
         // 연결되었을 때 콜백함수 실행
@@ -147,6 +164,7 @@ const ChattingRoom = (props) => {
   }
 
   // 나가기 상태 보여주기
+  //나가기 상태? 디스코드에서는 로그아웃된 유저들을 말하는?
   const outRoomStat = useSelector((state) => state.chat.chatOut);
 
   if (outRoomStat === true) {
