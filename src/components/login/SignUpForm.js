@@ -75,7 +75,6 @@ const SignUpFrom = ({ onClickInformBtn }) => {
     };
     userSignup(newUser).then((res) => {
       sweetAlert(1000, "success", "회원가입 성공");
-      localStorage.setItem("id", res.headers.authorization);
       navigate("/login");
     });
   };
