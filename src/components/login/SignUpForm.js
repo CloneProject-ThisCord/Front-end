@@ -48,6 +48,7 @@ const SignUpFrom = ({ onClickInformBtn }) => {
     if (blankExp.test(userEmail)) {
       return sweetAlert(1000, "error", "공백을 제거해주세요");
     }
+
     if (is_userId(userEmail) === false) {
       sweetAlert(1000, "error", "이메일 형식이 맞지 않습니다.");
       return;
@@ -57,7 +58,7 @@ const SignUpFrom = ({ onClickInformBtn }) => {
       return sweetAlert(
         1000,
         "error",
-        "닉네임은 최소 4자 이상, 12자 이하 알파벳 대소문자와 숫자로 구성 지켜주세요."
+        "비밀번호는 최소 6자 이상, 18자 이하의 알파벳 소문자, 숫자여야 합니다"
       );
     }
 

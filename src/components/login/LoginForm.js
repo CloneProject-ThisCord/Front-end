@@ -53,7 +53,7 @@ const LoginFrom = ({ onClickInformBtn }) => {
       return sweetAlert(
         1000,
         "error",
-        "비밀번호는 최소 6자 이상, 20자 이하의 알파벳 대소문자, 숫자, 특수문자여야 합니다"
+        "비밀번호는 최소 6자 이상, 18자 이하의 알파벳 소문자, 숫자여야 합니다"
       );
     }
     userLogin({
@@ -88,7 +88,7 @@ const LoginFrom = ({ onClickInformBtn }) => {
           비밀번호 <span>★</span>
         </p>
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           value={password || ""}
